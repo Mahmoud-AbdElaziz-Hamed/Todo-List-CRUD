@@ -2,49 +2,48 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 
 const App = () => {
-  // const todoList = ["work", "sleep", "palying"];
   const [data, setData] = useState([]);
-  const [isedite, setIsEdite] = useState("hidden block");
-  const [addvalue, setAddvalue] = useState("");
-  const [eidtValue, setEidtValue] = useState("");
-  const [idOfEdite, setidOfEdite] = useState(-1);
+  const [isEdit, setIsEdit] = useState("hidden block");
+  const [addValue, setAddValue] = useState("");
+  const [editValue, setEditValue] = useState("");
+  const [editId, setEditId] = useState(-1);
 
-  const handelDelete = (id) => {
+  const handleDelete = (id) => {
     const upateDatAfterDelete = data.filter((item) => {
       return item.id !== id;
     });
     console.log("upateDatAfterDelete: ", upateDatAfterDelete);
     setData(upateDatAfterDelete);
   };
-  const handelInputChange = (e) => {
-    setAddvalue(e.target.value);
+  const handleInputChange = (e) => {
+    setAddValue(e.target.value);
   };
-  const handelAdd = (value) => {
-    setData([...data, { id: data.length + 1, todo: addvalue }]);
-    setAddvalue("");
-  };
-
-  const handelEdite = (id) => {
-    setIsEdite("m-3");
-    setidOfEdite(id);
+  const handleAdd = (value) => {
+    setData([...data, { id: data.length + 1, todo: addValue }]);
+    setAddValue("");
   };
 
-  const handelInputEidt = (e) => {
-    setEidtValue(e.target.value);
+  const handleEdite = (id) => {
+    setIsEdit("m-3");
+    setEditId(id);
   };
 
-  const finishEdit = (valueEdite) => {
+  const handleInputEdit = (e) => {
+    setEditValue(e.target.value);
+  };
+
+  const finishEdit = (valueEdit) => {
     const editedArry = [...data];
-    const itemToEdit = editedArry.find((item) => item.id === idOfEdite);
+    const itemToEdit = editedArry.find((item) => item.id === editId);
     console.log(itemToEdit);
-    console.log(valueEdite);
+    console.log(valueEdit);
 
     itemToEdit
-      ? (itemToEdit.todo = valueEdite)
+      ? (itemToEdit.todo = valueEdit)
       : (itemToEdit.todo = itemToEdit.todo);
     setData(editedArry);
-    setEidtValue("");
-    setIsEdite("hidden block");
+    setEditValue("");
+    setIsEdit("hidden block");
   };
 
   useEffect(() => {
@@ -53,44 +52,44 @@ const App = () => {
         res.json()
       );
 
-      const newarry = [...data, ...response.todos];
-      // console.log(newarry);
-      setData(newarry);
+      const newArry = [...data, ...response.todos];
+      // console.log(newArry);
+      setData(newArry);
     };
     getData();
   }, []);
 
   return (
     <>
-      <div className=" m-3">
-        <label className=" m-2 block">Insert your work</label>
+      <div className="m-3">
+        <label className="m-2 block">Insert your work</label>
         <input
           type="text"
-          value={addvalue}
-          onChange={(e) => handelInputChange(e)}
-          className="border w-96 h-20 "
+          value={addValue}
+          onChange={(e) => handleInputChange(e)}
+          className="border w-96 h-20"
         />
         <button
-          className=" btn btn-primary ml-3"
+          className="btn btn-primary ml-3"
           onClick={() => {
-            handelAdd(addvalue);
+            handleAdd(addValue);
           }}
         >
           {" "}
           Add to todo
         </button>
       </div>
-      <div className={isedite}>
+      <div className={isEdit}>
         {" "}
-        <label className=" m-2 block">Edite your Todo</label>
+        <label className="m-2 block">Edit your Todo</label>
         <input
           type="text"
-          className="border w-96 h-20 "
-          value={eidtValue}
-          onChange={(e) => handelInputEidt(e)}
+          className="border w-96 h-20"
+          value={editValue}
+          onChange={(e) => handleInputEdit(e)}
         />
         <button
-          onClick={() => finishEdit(eidtValue)}
+          onClick={() => finishEdit(editValue)}
           className="btn btn-primary ml-3 w-32"
         >
           edit
@@ -99,23 +98,23 @@ const App = () => {
       <div className="border rounded-2xl m-10">
         <ul className="list-[upper-roman] inline-block mt-3 w-full">
           {" "}
-          {data.map((iteam) => (
-            <div className="m-2" key={iteam.id}>
+          {data.map((item) => (
+            <div className="m-2" key={item.id}>
               <li className="flex flex-row w-auto justify-between">
-                {iteam.todo}
+                {item.todo}
                 <div className="w-auto mr-20">
                   <button
-                    className=" btn btn-primary m-2"
+                    className="btn btn-primary m-2"
                     onClick={() => {
-                      handelDelete(iteam.id);
+                      handleDelete(item.id);
                     }}
                   >
                     {" "}
                     DELETE
                   </button>
                   <button
-                    onClick={() => handelEdite(iteam.id)}
-                    className=" btn btn-primary m-2"
+                    onClick={() => handleEdite(item.id)}
+                    className="btn btn-primary m-2"
                   >
                     {" "}
                     EDIT
