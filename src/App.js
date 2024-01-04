@@ -9,11 +9,11 @@ const App = () => {
   const [editId, setEditId] = useState(0);
 
   const handleDelete = (id) => {
-    const upateDatAfterDelete = data.filter((item) => {
+    const updateDataAfterDelete = data.filter((item) => {
       return item.id !== id;
     });
-    console.log("upateDatAfterDelete: ", upateDatAfterDelete);
-    setData(upateDatAfterDelete);
+    console.log("updateDataAfterDelete: ", updateDataAfterDelete);
+    setData(updateDataAfterDelete);
   };
 
   const handleInputChange = (e) => {
@@ -76,7 +76,9 @@ const App = () => {
           className="border w-96 h-20"
         />
         <button
-          className="btn btn-primary ml-3"
+          className={`btn btn-primary ml-3 ${
+            addValue.trim() === "" ? "disabled" : ""
+          }`}
           onClick={() => {
             handleAdd(addValue);
           }}
@@ -85,7 +87,7 @@ const App = () => {
           Add to todo
         </button>
       </div>
-      <div className="border rounded-2xl m-10">
+      <div className="border m-10">
         <ul className="list-[upper-roman] inline-block mt-3 w-full">
           {" "}
           <div className="m-2">
