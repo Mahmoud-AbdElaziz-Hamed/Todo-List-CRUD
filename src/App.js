@@ -19,7 +19,10 @@ const App = () => {
     setAddValue(e.target.value);
   };
   const handleAdd = (value) => {
-    setData([...data, { id: data.length + 1, todo: addValue }]);
+    setData([
+      ...data,
+      { id: Math.floor(Math.random() * 1000000), todo: addValue },
+    ]);
     setAddValue("");
   };
 
