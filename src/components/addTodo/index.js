@@ -2,6 +2,8 @@ import Input from "../input";
 import Button from "../button";
 
 const AddTodo = ({ onChangeChangedInput, addValue, handleAdd }) => {
+  console.log(addValue);
+  console.log(addValue.trim() === "");
   return (
     <>
       <div className="m-3">
@@ -19,9 +21,10 @@ const AddTodo = ({ onChangeChangedInput, addValue, handleAdd }) => {
             handleAdd(addValue);
           }}
           text="Add to todo"
-          className={`btn btn-primary ml-3 ${
-            addValue.trim() === "" ? "disabled" : ""
-          }`}
+          className={`${
+            addValue.trim() === "" ? "bg-gray-400" : "bg-blue-500"
+          } text-white py-2 px-4 rounded ml-3 `}
+          disabled={addValue.trim() === ""}
         />
       </div>
     </>

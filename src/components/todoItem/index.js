@@ -26,7 +26,7 @@ const TodoItem = ({
             <Button
               onClick={onClickFinishEdit}
               text={"OK"}
-              className="btn btn-primary m-2"
+              className="bg-blue-500 text-white py-2 px-4 rounded"
             />
           </div>
         </div>
@@ -37,12 +37,12 @@ const TodoItem = ({
             <Button
               text="DELETE"
               onClick={onClickDelete}
-              className="btn btn-primary m-2"
+              className="bg-blue-500 text-white py-2 px-4 rounded m-3"
             />
             <Button
               text="Eidt"
               onClick={onClickEdit}
-              className="btn btn-primary m-2"
+              className="bg-blue-500 text-white py-2 px-4 rounded m-3"
             />
           </div>
         </li>

@@ -1,4 +1,4 @@
-const Input = ({ type, value, onChange, className, labelText }) => {
+const Input = ({ type, value, onChange, className }) => {
   return (
     <>
       <input
