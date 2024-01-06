@@ -1,5 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
+import TodoItemList from "./components/todoItemList";
+import AddTodo from "./components/addTodo";
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -24,7 +26,7 @@ const App = () => {
     setAddValue("");
   };
 
-  const handleEdite = (index) => {
+  const handleEdit = (index) => {
     const newData = data.slice();
     newData[index].isEditMode = true;
     setData(newData);
@@ -36,7 +38,7 @@ const App = () => {
     setData(newData);
   };
 
-  const handleFinshEdit = (index) => {
+  const handleFinishEdit = (index) => {
     const newData = data.slice();
     newData[index].isEditMode = false;
     setData(newData);
@@ -61,77 +63,18 @@ const App = () => {
 
   return (
     <>
-      <div className="m-3">
-        <label className="m-2 block">Insert your work</label>
-        <input
-          type="text"
-          value={addValue}
-          onChange={(e) => handleInputChange(e)}
-          className="border w-96 h-20"
-        />
-        <button
-          className={`btn btn-primary ml-3 ${
-            addValue.trim() === "" ? "disabled" : ""
-          }`}
-          onClick={() => {
-            handleAdd(addValue);
-          }}
-        >
-          Add to todo
-        </button>
-      </div>
-      <div className="border m-10">
-        <ul className="list-[upper-roman] inline-block mt-3 w-full">
-          <div className="m-2">
-            {data.map((item, index) =>
-              item.isEditMode ? (
-                <div
-                  key={item.id}
-                  className="flex flex-row w-auto justify-between"
-                >
-                  <input
-                    type="text"
-                    value={item.todo}
-                    className="border w-max rounded-2xl"
-                    onChange={(e) => handleChangeOfEdit(e, index)}
-                  />
-                  <div className="w-auto mr-20">
-                    <button
-                      onClick={() => handleFinshEdit(index)}
-                      className="btn btn-primary m-2"
-                    >
-                      OK
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <li
-                  className="flex flex-row w-auto justify-between"
-                  key={item.id}
-                >
-                  {item.todo}
-                  <div className="w-auto mr-20">
-                    <button
-                      className="btn btn-primary m-2"
-                      onClick={() => {
-                        handleDelete(item.id);
-                      }}
-                    >
-                      DELETE
-                    </button>
-                    <button
-                      onClick={() => handleEdite(index)}
-                      className="btn btn-primary m-2"
-                    >
-                      EDIT
-                    </button>
-                  </div>
-                </li>
-              )
-            )}
-          </div>
-        </ul>
-      </div>
+      <AddTodo
+        onChangeChangedInput={handleInputChange}
+        addValue={addValue}
+        handleAdd={handleAdd}
+      />
+      <TodoItemList
+        data={data}
+        handleFinishEdit={handleFinishEdit}
+        handleChangeOfEdit={handleChangeOfEdit}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+      />
     </>
   );
 };
