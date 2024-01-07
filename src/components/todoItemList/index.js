@@ -2,28 +2,27 @@ import TodoItem from "../todoItem";
 
 const TodoItemList = ({
   data,
-  handleFinishEdit,
-  handleChangeOfEdit,
+  toggleEditMode,
+  handleEidtChange,
   handleDelete,
-  handleEdit,
 }) => {
   return (
     <>
       <div className="border m-10">
         <ul className="list-[upper-roman] inline-block mt-3 w-full">
           <div className="m-2">
-            {data.map((item, index) => (
+            {data.map((item, id) => (
               <TodoItem
                 editMode={item.isEditMode}
                 key={item.id}
                 itemTodo={item.todo}
                 value={item.todo}
-                onClickchangeOfEdit={(e) => handleChangeOfEdit(e, index)}
-                onClickFinishEdit={() => handleFinishEdit(index)}
+                onClickchangeOfEdit={(e) => handleEidtChange(e, id)}
+                onClickFinishEdit={() => toggleEditMode(id)}
                 onClickDelete={() => {
                   handleDelete(item.id);
                 }}
-                onClickEdit={() => handleEdit(index)}
+                onClickEdit={() => toggleEditMode(id)}
               />
             ))}
           </div>

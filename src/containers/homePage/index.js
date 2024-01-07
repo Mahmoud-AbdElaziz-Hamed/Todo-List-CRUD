@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AddTodo from "../../components/addTodo/index";
 import TodoItemList from "../../components/todoItemList";
+import GetRandomNumber from "../../utils/getRandomNumber";
 
 const HomePage = () => {
   const [data, setData] = useState([]);
@@ -13,33 +14,25 @@ const HomePage = () => {
     setData(updateDataAfterDelete);
   };
 
-  const handleInputChange = (e) => {
+  const handleAddChange = (e) => {
     setAddValue(e.target.value);
   };
 
   const handleAdd = () => {
-    setData([
-      ...data,
-      { id: Math.floor(Math.random() * 1000000), todo: addValue },
-    ]);
+    setData([...data, { id: GetRandomNumber(6), todo: addValue }]);
+    console.log([...data, { id: GetRandomNumber(6), todo: addValue }]);
     setAddValue("");
   };
 
-  const handleEdit = (index) => {
-    const newData = data.slice();
-    newData[index].isEditMode = true;
+  const toggleEditMode = (id) => {
+    const newData = [...data];
+    newData[id].isEditMode = !newData[id].isEditMode;
     setData(newData);
   };
 
-  const handleChangeOfEdit = (e, index) => {
-    const newData = data.slice();
-    newData[index].todo = e.target.value;
-    setData(newData);
-  };
-
-  const handleFinishEdit = (index) => {
-    const newData = data.slice();
-    newData[index].isEditMode = false;
+  const handleEidtChange = (e, id) => {
+    const newData = [...data];
+    newData[id].todo = e.target.value;
     setData(newData);
   };
 
@@ -48,14 +41,14 @@ const HomePage = () => {
       const response = await fetch("https://dummyjson.com/todos").then((res) =>
         res.json()
       );
-      const newArry = [
+      const newArray = [
         ...data,
         ...response.todos.map((item) => {
           item.isEditMode = false;
           return item;
         }),
       ];
-      setData(newArry);
+      setData(newArray);
     };
     getData();
   }, []);
@@ -63,16 +56,15 @@ const HomePage = () => {
   return (
     <>
       <AddTodo
-        onChangeChangedInput={handleInputChange}
+        onChangeChangedInput={handleAddChange}
         addValue={addValue}
         handleAdd={handleAdd}
       />
       <TodoItemList
         data={data}
-        handleFinishEdit={handleFinishEdit}
-        handleChangeOfEdit={handleChangeOfEdit}
+        toggleEditMode={toggleEditMode}
+        handleEidtChange={handleEidtChange}
         handleDelete={handleDelete}
-        handleEdit={handleEdit}
       />
     </>
   );
