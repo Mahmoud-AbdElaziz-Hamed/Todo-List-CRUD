@@ -1,5 +1,6 @@
 import Button from "../button";
 import Input from "../input";
+import classNames from "classnames";
 
 const TodoItem = ({
   customKey,
@@ -10,6 +11,11 @@ const TodoItem = ({
   onClickchangeOfEdit,
   value,
 }) => {
+  const combinedOkButtonClassName = classNames(
+    value.trim() === "" ? "bg-gray-400" : "bg-blue-500",
+    `text-white py-2 px-4 rounded ml-3 `,
+    { disabled: value.trim() === "" }
+  );
   return (
     <>
       {editMode ? (
@@ -26,9 +32,9 @@ const TodoItem = ({
           />
           <div className="w-auto mr-20">
             <Button
-              onClick={onClickEdit}
+              onClick={value.trim() === "" ? undefined : onClickEdit}
               text={"OK"}
-              className="bg-blue-500 text-white py-2 px-4 rounded"
+              className={combinedOkButtonClassName}
             />
           </div>
         </div>
