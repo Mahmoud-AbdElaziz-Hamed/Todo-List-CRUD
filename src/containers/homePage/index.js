@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddTodo from "../../components/addTodo/index";
 import TodoItemList from "../../components/todoItemList";
-import GetRandomNumber from "../../utils/getRandomNumber";
+import { getRandomNumber } from "../../utils/getRandomNumber";
 
 const HomePage = () => {
   const [data, setData] = useState([]);
@@ -19,8 +19,8 @@ const HomePage = () => {
   };
 
   const handleAdd = () => {
-    setData([...data, { id: GetRandomNumber(6), todo: addValue }]);
-    console.log([...data, { id: GetRandomNumber(6), todo: addValue }]);
+    setData([...data, { id: getRandomNumber(6), todo: addValue }]);
+    console.log([...data, { id: getRandomNumber(6), todo: addValue }]);
     setAddValue("");
   };
 

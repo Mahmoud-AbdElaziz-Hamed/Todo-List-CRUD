@@ -1,6 +1,8 @@
-const GetRandomNumber = (digit) => {
-  const id = Math.random() * Math.pow(10, digit);
-  return Math.floor(id);
+export const getRandomNumber = (digit) => {
+  let id;
+  do {
+    const randomNumber = Math.random() * Math.pow(10, digit);
+    id = Math.floor(randomNumber);
+  } while (id.toString()[0] === "0");
+  return id;
 };
-
-export default GetRandomNumber;
