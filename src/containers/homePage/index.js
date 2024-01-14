@@ -19,7 +19,6 @@ export const HomePage = () => {
   };
 
   const handleAddClick = () => {
-    console.log([...data, { id: getRandomNumber(6), todo: addValue }]);
     setData([...data, { id: getRandomNumber(6), todo: addValue }]);
     setAddValue("");
   };
