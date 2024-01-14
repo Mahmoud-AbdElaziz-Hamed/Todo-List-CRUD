@@ -1,4 +1,3 @@
-import React from "react";
 import { getRandomNumber } from "./index";
 
 describe("getRandomNumber function", () => {

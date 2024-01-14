@@ -1,21 +1,19 @@
 import React from "react";
-import Button from "../button";
-import Input from "../input";
+import { Button } from "../Button";
+import { Input } from "../Input";
 import classNames from "classnames";
 
-const TodoItem = ({
+export const TodoItem = ({
   customKey,
-  itemTodo,
+  todo,
   editMode,
-  onClickDelete,
-  onClickEdit,
-  onClickchangeOfEdit,
-  value,
+  onDeleteClick,
+  onEditClick,
+  onFinishEditClick,
 }) => {
   const combinedOkButtonClassName = classNames(
-    value.trim() === "" ? "bg-gray-400" : "bg-blue-500",
-    `text-white py-2 px-4 rounded ml-3 `,
-    { disabled: value.trim() === "" }
+    !todo.trim() ? "bg-gray-400  disabled" : "bg-blue-500",
+    `text-white py-2 px-4 rounded ml-3`
   );
   return (
     <>
@@ -27,16 +25,18 @@ const TodoItem = ({
           <Input
             hasLabel={false}
             type="text"
-            value={value}
+            value={todo}
             className="border w-4/5 p-2 rounded-2xl"
-            onChange={onClickchangeOfEdit}
+            onChange={onEditClick}
           />
-          <div className="w-auto mr-20">
+          <div className="w-auto">
             <Button
-              onClick={value.trim() === "" ? undefined : onClickEdit}
-              text={"OK"}
+              onClick={onFinishEditClick}
               className={combinedOkButtonClassName}
-            />
+              disabled={!todo.trim()}
+            >
+              Finish
+            </Button>
           </div>
         </div>
       ) : (
@@ -44,23 +44,23 @@ const TodoItem = ({
           className="flex flex-row w-auto items-center ml-2 justify-between"
           key={customKey}
         >
-          {itemTodo}
-          <div className="w-auto mr-10">
+          {todo}
+          <div className="w-auto">
             <Button
-              text="DELETE"
-              onClick={onClickDelete}
+              onClick={onDeleteClick}
               className="bg-blue-500 text-white py-2 px-4 rounded m-3"
-            />
+            >
+              DELETE
+            </Button>
             <Button
-              text="Eidt"
-              onClick={onClickEdit}
+              onClick={onFinishEditClick}
               className="bg-blue-500 text-white py-2 px-4 rounded m-3"
-            />
+            >
+              Eidt
+            </Button>
           </div>
         </li>
       )}
     </>
   );
 };
-
-export default TodoItem;

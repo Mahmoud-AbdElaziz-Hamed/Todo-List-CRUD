@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import AddTodo from "../../components/addTodo/index";
-import TodoItemList from "../../components/todoItemList";
+import { useEffect, useState } from "react";
+import { AddTodo } from "../../components/AddTodo";
+import { TodoItemList } from "../../components/TodoItemList";
 import { getRandomNumber } from "../../utils/getRandomNumber";
 
-const HomePage = () => {
+export const HomePage = () => {
   const [data, setData] = useState([]);
   const [addValue, setAddValue] = useState("");
 
@@ -18,22 +18,32 @@ const HomePage = () => {
     setAddValue(e.target.value);
   };
 
-  const handleAdd = () => {
-    setData([...data, { id: getRandomNumber(6), todo: addValue }]);
+  const handleAddClick = () => {
     console.log([...data, { id: getRandomNumber(6), todo: addValue }]);
+    setData([...data, { id: getRandomNumber(6), todo: addValue }]);
     setAddValue("");
   };
 
-  const toggleEditMode = (id) => {
+  const toggleEditMode = (item) => {
     const newData = [...data];
-    newData[id].isEditMode = !newData[id].isEditMode;
-    setData(newData);
+    const updatedData = newData.map((el) => {
+      if (el.id === item.id) {
+        el.isEditMode = !el.isEditMode;
+      }
+      return el;
+    });
+    setData(updatedData);
   };
 
-  const handleEidtChange = (e, id) => {
+  const handleEditChange = (e, item) => {
     const newData = [...data];
-    newData[id].todo = e.target.value;
-    setData(newData);
+    const updatedData = newData.map((el) => {
+      if (el.id === item.id) {
+        el.todo = e.target.value;
+      }
+      return el;
+    });
+    setData(updatedData);
   };
 
   useEffect(() => {
@@ -56,18 +66,16 @@ const HomePage = () => {
   return (
     <>
       <AddTodo
-        onChangeChangedInput={handleAddChange}
+        onInputChange={handleAddChange}
         addValue={addValue}
-        handleAdd={handleAdd}
+        handleAddClick={handleAddClick}
       />
       <TodoItemList
         data={data}
         toggleEditMode={toggleEditMode}
-        handleEidtChange={handleEidtChange}
+        handleEditChange={handleEditChange}
         handleDelete={handleDelete}
       />
     </>
   );
 };
-
-export default HomePage;
