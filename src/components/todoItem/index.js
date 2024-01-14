@@ -56,7 +56,7 @@ export const TodoItem = ({
               onClick={onFinishEditClick}
               className="bg-blue-500 text-white py-2 px-4 rounded m-3"
             >
-              Eidt
+              Edit
             </Button>
           </div>
         </li>
