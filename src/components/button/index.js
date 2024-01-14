@@ -1,6 +1,12 @@
-export const Button = ({ onClick, className, children, disabled }) => {
+export const Button = ({ onClick, children, disabled }) => {
   return (
-    <button onClick={onClick} className={className} disabled={disabled}>
+    <button
+      onClick={onClick}
+      className={`text-white py-2 px-4 rounded m-2 ${
+        disabled === true ? "bg-gray-400" : "bg-blue-500"
+      }`}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

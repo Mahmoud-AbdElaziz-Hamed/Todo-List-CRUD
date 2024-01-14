@@ -1,9 +1,9 @@
 import { TodoItem } from "../TodoItem";
 export const TodoItemList = ({
   data,
-  toggleEditMode,
-  handleEditChange,
-  handleDelete,
+  onEditClick,
+  onEditChange,
+  onDeleteClick,
 }) => {
   return (
     <div className="border m-10">
@@ -14,12 +14,11 @@ export const TodoItemList = ({
               editMode={item.isEditMode}
               key={item.id}
               todo={item.todo}
-              onEditClick={(e) => handleEditChange(e, item)}
-              onFinishEditClick={() => toggleEditMode(item)}
+              onEditChange={(e) => onEditChange(e, item.id,item.todo)}
+              onEditClick={() => onEditClick(item.id)}
               onDeleteClick={() => {
-                handleDelete(item.id);
+                onDeleteClick(item.id);
               }}
-              onClickEdit={() => toggleEditMode(item)}
             />
           ))}
         </div>

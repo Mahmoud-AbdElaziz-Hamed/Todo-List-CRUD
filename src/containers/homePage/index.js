@@ -16,6 +16,9 @@ export const HomePage = () => {
 
   const handleAddChange = (e) => {
     setAddValue(e.target.value);
+    if (e.key === "Enter" && addValue.trim()) {
+      handleAddClick();
+    }
   };
 
   const handleAddClick = () => {
@@ -23,26 +26,21 @@ export const HomePage = () => {
     setAddValue("");
   };
 
-  const toggleEditMode = (item) => {
+  const toggleEditMode = (id) => {
     const newData = [...data];
-    const updatedData = newData.map((el) => {
-      if (el.id === item.id) {
-        el.isEditMode = !el.isEditMode;
-      }
-      return el;
-    });
-    setData(updatedData);
+    const editedElement = newData.find((ele) => ele.id === id);
+    editedElement.isEditMode = !editedElement.isEditMode;
+    setData(newData);
   };
 
-  const handleEditChange = (e, item) => {
+  const handleEditChange = (e, id, todo) => {
     const newData = [...data];
-    const updatedData = newData.map((el) => {
-      if (el.id === item.id) {
-        el.todo = e.target.value;
-      }
-      return el;
-    });
-    setData(updatedData);
+    const editedElement = newData.find((ele) => ele.id === id);
+    editedElement.todo = e.target.value;
+    setData(newData);
+    if (e.key === "Enter" && todo.trim()) {
+      toggleEditMode(id);
+    }
   };
 
   useEffect(() => {
@@ -67,13 +65,13 @@ export const HomePage = () => {
       <AddTodo
         onInputChange={handleAddChange}
         addValue={addValue}
-        handleAddClick={handleAddClick}
+        onAddClick={handleAddClick}
       />
       <TodoItemList
         data={data}
-        toggleEditMode={toggleEditMode}
-        handleEditChange={handleEditChange}
-        handleDelete={handleDelete}
+        onEditClick={toggleEditMode}
+        onEditChange={handleEditChange}
+        onDeleteClick={handleDelete}
       />
     </>
   );

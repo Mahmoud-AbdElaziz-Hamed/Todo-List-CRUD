@@ -1,40 +1,29 @@
-import React from "react";
 import { Button } from "../Button";
 import { Input } from "../Input";
-import classNames from "classnames";
 
 export const TodoItem = ({
   customKey,
   todo,
   editMode,
   onDeleteClick,
+  onEditChange,
   onEditClick,
-  onFinishEditClick,
 }) => {
-  const combinedOkButtonClassName = classNames(
-    !todo.trim() ? "bg-gray-400  disabled" : "bg-blue-500",
-    `text-white py-2 px-4 rounded ml-3`
-  );
   return (
     <>
       {editMode ? (
         <div
           key={customKey}
-          className="flex flex-row w-auto justify-between m-3"
+          className="flex flex-row w-auto justify-between mb-1"
         >
           <Input
             hasLabel={false}
             type="text"
             value={todo}
-            className="border w-4/5 p-2 rounded-2xl"
-            onChange={onEditClick}
+            onChange={onEditChange}
           />
           <div className="w-auto">
-            <Button
-              onClick={onFinishEditClick}
-              className={combinedOkButtonClassName}
-              disabled={!todo.trim()}
-            >
+            <Button onClick={onEditClick} disabled={!todo.trim()}>
               Finish
             </Button>
           </div>
@@ -46,18 +35,8 @@ export const TodoItem = ({
         >
           {todo}
           <div className="w-auto">
-            <Button
-              onClick={onDeleteClick}
-              className="bg-blue-500 text-white py-2 px-4 rounded m-3"
-            >
-              DELETE
-            </Button>
-            <Button
-              onClick={onFinishEditClick}
-              className="bg-blue-500 text-white py-2 px-4 rounded m-3"
-            >
-              Edit
-            </Button>
+            <Button onClick={onDeleteClick}>DELETE</Button>
+            <Button onClick={onEditClick}>Edit</Button>
           </div>
         </li>
       )}

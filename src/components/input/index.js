@@ -1,10 +1,11 @@
-export const Input = ({ type, value, onChange, className }) => {
+export const Input = ({ type, value, onChange }) => {
   return (
     <input
       type={type}
       value={value}
       onChange={onChange}
-      className={className}
+      onKeyDown={onChange}
+      className="border w-3/4 p-2 rounded-2xl"
     />
   );
 };
