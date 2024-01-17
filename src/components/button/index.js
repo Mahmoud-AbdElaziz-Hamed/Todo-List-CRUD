@@ -3,7 +3,7 @@ export const Button = ({ onClick, children, disabled }) => {
     <button
       onClick={onClick}
       className={`text-white py-2 px-4 rounded m-2 ${
-        disabled === true ? "bg-gray-400" : "bg-blue-500"
+        disabled ? "bg-gray-400" : "bg-blue-500"
       }`}
       disabled={disabled}
     >

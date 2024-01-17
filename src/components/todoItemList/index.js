@@ -14,7 +14,7 @@ export const TodoItemList = ({
               editMode={item.isEditMode}
               key={item.id}
               todo={item.todo}
-              onEditChange={(e) => onEditChange(e, item.id,item.todo)}
+              onEditChange={(e) => onEditChange(e, item.id)}
               onEditClick={() => onEditClick(item.id)}
               onDeleteClick={() => {
                 onDeleteClick(item.id);

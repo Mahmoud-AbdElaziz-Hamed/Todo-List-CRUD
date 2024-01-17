@@ -2,7 +2,6 @@ import { Button } from "../Button";
 import { Input } from "../Input";
 
 export const TodoItem = ({
-  customKey,
   todo,
   editMode,
   onDeleteClick,
@@ -12,10 +11,7 @@ export const TodoItem = ({
   return (
     <>
       {editMode ? (
-        <div
-          key={customKey}
-          className="flex flex-row w-auto justify-between mb-1"
-        >
+        <div className="flex flex-row w-auto justify-between mb-1">
           <Input
             hasLabel={false}
             type="text"
@@ -29,10 +25,7 @@ export const TodoItem = ({
           </div>
         </div>
       ) : (
-        <li
-          className="flex flex-row w-auto items-center ml-2 justify-between"
-          key={customKey}
-        >
+        <li className="flex flex-row w-auto items-center ml-2 justify-between">
           {todo}
           <div className="w-auto">
             <Button onClick={onDeleteClick}>DELETE</Button>

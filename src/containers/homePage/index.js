@@ -33,12 +33,12 @@ export const HomePage = () => {
     setData(newData);
   };
 
-  const handleEditChange = (e, id, todo) => {
+  const handleEditChange = (e, id) => {
     const newData = [...data];
     const editedElement = newData.find((ele) => ele.id === id);
     editedElement.todo = e.target.value;
     setData(newData);
-    if (e.key === "Enter" && todo.trim()) {
+    if (e.key === "Enter" && e.target.value.trim()) {
       toggleEditMode(id);
     }
   };
